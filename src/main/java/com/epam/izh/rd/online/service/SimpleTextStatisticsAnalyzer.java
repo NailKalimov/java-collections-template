@@ -4,8 +4,6 @@ import com.epam.izh.rd.online.helper.Direction;
 
 import java.util.*;
 
-import static java.util.Collections.*;
-
 /**
  * Совет:
  * Начните с реализации метода {@link SimpleTextStatisticsAnalyzer#getWords(String)}.
@@ -23,7 +21,12 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public int countSumLengthOfWords(String text) {
-        return 0;
+        List<String> list = getWords(text);
+        int count=0;
+        for (String word:list) {
+            count += word.length();
+        }
+        return count;
     }
 
     /**
@@ -34,7 +37,8 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public int countNumberOfWords(String text) {
-        return 0;
+        List<String> list = getWords(text);
+        return list.size();
     }
 
     /**
@@ -44,7 +48,9 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public int countNumberOfUniqueWords(String text) {
-        return 0;
+        List<String> list = getWords(text);
+        Set<String> set = new HashSet<>(list);
+        return set.size();
     }
 
     /**
@@ -57,7 +63,9 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public List<String> getWords(String text) {
-        return emptyList();
+        text.replaceAll("\\n", " ");
+        String [] words = text.split("\\P{Alpha}+");
+        return Arrays.asList(words);
     }
 
     /**
@@ -70,7 +78,8 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public Set<String> getUniqueWords(String text) {
-        return emptySet();
+        List<String> list = getWords(text);
+        return new LinkedHashSet<>(list);
     }
 
     /**
@@ -82,7 +91,13 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public Map<String, Integer> countNumberOfWordsRepetitions(String text) {
-        return emptyMap();
+        List<String> list = getWords(text);
+        Map<String, Integer> map = new LinkedHashMap<>();
+        for (String temp : list) {
+            Integer count = map.get(temp);
+            map.put(temp, (count == null) ? 1 : count + 1);
+        }
+        return map;
     }
 
     /**
@@ -95,6 +110,8 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
      */
     @Override
     public List<String> sortWordsByLength(String text, Direction direction) {
-        return emptyList();
+        List<String> list = getWords(text);
+        list.sort(((o1, o2) -> direction==Direction.ASC? o1.length()-o2.length() : -(o1.length()-o2.length())));
+        return list;
     }
 }
