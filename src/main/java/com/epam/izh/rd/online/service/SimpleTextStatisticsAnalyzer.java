@@ -22,8 +22,8 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
     @Override
     public int countSumLengthOfWords(String text) {
         List<String> list = getWords(text);
-        int count=0;
-        for (String word:list) {
+        int count = 0;
+        for (String word : list) {
             count += word.length();
         }
         return count;
@@ -64,7 +64,7 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
     @Override
     public List<String> getWords(String text) {
         text.replaceAll("\\n", " ");
-        String [] words = text.split("\\P{Alpha}+");
+        String[] words = text.split("\\P{Alpha}+");
         return Arrays.asList(words);
     }
 
@@ -111,7 +111,7 @@ public class SimpleTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
     @Override
     public List<String> sortWordsByLength(String text, Direction direction) {
         List<String> list = getWords(text);
-        list.sort(((o1, o2) -> direction==Direction.ASC? o1.length()-o2.length() : -(o1.length()-o2.length())));
+        list.sort(((o1, o2) -> direction == Direction.ASC ? o1.length() - o2.length() : -(o1.length() - o2.length())));
         return list;
     }
 }

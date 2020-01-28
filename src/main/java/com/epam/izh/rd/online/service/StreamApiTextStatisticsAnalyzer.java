@@ -20,12 +20,12 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public int countNumberOfWords(String text) {
-        return getWords(text).stream().mapToInt(s->1).sum();
+        return getWords(text).stream().mapToInt(s -> 1).sum();
     }
 
     @Override
     public int countNumberOfUniqueWords(String text) {
-        return getWords(text).stream().distinct().mapToInt(s->1).sum();
+        return getWords(text).stream().distinct().mapToInt(s -> 1).sum();
     }
 
     @Override
@@ -40,12 +40,12 @@ public class StreamApiTextStatisticsAnalyzer implements TextStatisticsAnalyzer {
 
     @Override
     public Map<String, Integer> countNumberOfWordsRepetitions(String text) {
-        return getWords(text).stream().collect(Collectors.toMap(s -> s, s->1, Integer::sum));
+        return getWords(text).stream().collect(Collectors.toMap(s -> s, s -> 1, Integer::sum));
     }
 
     @Override
     public List<String> sortWordsByLength(String text, Direction direction) {
-        return getWords(text).stream().sorted((o1, o2) -> direction==Direction.ASC? o1.length()-o2.length() :
-                -(o1.length()-o2.length())).collect(Collectors.toList());
+        return getWords(text).stream().sorted((o1, o2) -> direction == Direction.ASC ? o1.length() - o2.length() :
+                -(o1.length() - o2.length())).collect(Collectors.toList());
     }
 }
